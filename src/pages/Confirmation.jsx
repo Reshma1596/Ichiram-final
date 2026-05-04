@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD:frontend/src/pages/Confirmation.jsx
 import {
   Box,
   Button,
@@ -153,6 +154,32 @@ function Confirmation() {
             py: 1.4,
             "&:hover": { backgroundColor: "#e65600" },
           }}
+=======
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+function Confirmation() {
+  const navigate = useNavigate();
+
+  return (
+    <Box sx={{ p: 4 }}>
+      <Stack spacing={3}>
+        <Typography variant="h4" fontWeight={700}>
+          Order Confirmed
+        </Typography>
+
+        <Typography variant="body1">
+          Your order has been placed successfully.
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#ff5f00",
+            "&:hover": { backgroundColor: "#e65600" },
+          }}
+          onClick={() => navigate("/home/menu")}
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/Confirmation.jsx
         >
           Back to Menu
         </Button>
@@ -161,4 +188,8 @@ function Confirmation() {
   );
 }
 
+<<<<<<< HEAD:frontend/src/pages/Confirmation.jsx
 export default Confirmation;
+=======
+export default Confirmation;
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/Confirmation.jsx

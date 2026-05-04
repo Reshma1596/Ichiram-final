@@ -9,6 +9,11 @@ import Aboutus from './pages/AboutUs.jsx'
 import Contact from './pages/Contact.jsx'
 import CartReview from './pages/CartReview.jsx'
 import Confirmation from './pages/Confirmation.jsx'
+<<<<<<< HEAD:frontend/src/App.jsx
+=======
+
+
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/App.jsx
 function App() {
  return (
     <>
@@ -20,8 +25,13 @@ function App() {
   <Route path="aboutus" element={<Aboutus />} />
   <Route path="contact" element={<Contact />} />
   <Route path="cart" element={<CartReview />} />
+<<<<<<< HEAD:frontend/src/App.jsx
   <Route path="confirmation" element={<Confirmation />} /> 
   </Route>
+=======
+  <Route path="confirmation" element={<Confirmation />} />  
+   </Route>
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/App.jsx
 </Routes>
       
     

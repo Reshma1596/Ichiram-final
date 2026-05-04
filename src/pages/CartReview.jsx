@@ -1,4 +1,8 @@
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
 /*import React from "react";
+=======
+import React from "react";
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -10,10 +14,15 @@ import {
   selectCartCount,
   selectSubtotal,
   selectCartList,
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
   clearCart,
 } from "../redux/cartSlice";
 import { useTranslation } from "react-i18next";
 import { placeOrder } from "../redux/ordersSlice";
+=======
+} from "../redux/cartSlice";
+import { useTranslation } from "react-i18next";
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
 
 const CartReview = () => {
   const { t } = useTranslation();
@@ -29,6 +38,7 @@ const CartReview = () => {
   };
 
   const handleProceed = () => {
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
     const orderData = {
       id: `ORD-${Date.now()}`,
       items: cartList,
@@ -51,6 +61,9 @@ const CartReview = () => {
         order: orderData,
       },
     });
+=======
+    navigate("/home/confirmation");
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
   };
 
   if (cartList.length === 0) {
@@ -111,13 +124,22 @@ const CartReview = () => {
       <div
         style={{
           width: "100%",
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
           maxWidth: "1400px",
           margin: "12px auto 24px",
           padding: "0 12px",
+=======
+          maxWidth: "1200px",
+          margin: "12px auto 24px",
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
         }}
       >
         {cartList.map((item) => {
           const product = menuData.find((p) => p.id === item.id);
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
+=======
+
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
           if (!product) return null;
 
           const itemTotal = product.price * item.quantity;
@@ -126,10 +148,17 @@ const CartReview = () => {
             <div
               key={item.id}
               style={{
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
                 display: "grid",
                 gridTemplateColumns: "90px 1fr",
                 gap: "16px",
                 alignItems: "start",
+=======
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "16px",
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
                 border: "1px solid #ffd7b8",
                 borderRadius: "10px",
                 padding: "16px",
@@ -151,7 +180,11 @@ const CartReview = () => {
                 }}
               />
 
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
               <div style={{ width: "100%" }}>
+=======
+              <div style={{ flex: 1 }}>
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
                 <h3 style={{ margin: "0 0 8px", color: "#1f1f1f" }}>
                   {t(product.nameKey)}
                 </h3>
@@ -170,6 +203,7 @@ const CartReview = () => {
                 >
                   Item Total: ₹{itemTotal}
                 </p>
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
 
                 <div
                   style={{
@@ -228,6 +262,65 @@ const CartReview = () => {
                     Remove
                   </Button>
                 </div>
+=======
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  minWidth: "170px",
+                  marginLeft: "auto",
+                }}
+              >
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => dispatch(decrementItem(item.id))}
+                    sx={{
+                      minWidth: "48px",
+                      borderColor: "#ffb26b",
+                      color: "#ff5f00",
+                      backgroundColor: "#fff3e6",
+                      "&:hover": {
+                        borderColor: "#ff9a3d",
+                        backgroundColor: "#ffe7cc",
+                      },
+                    }}
+                  >
+                    -
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    onClick={() => dispatch(incrementItem(item.id))}
+                    sx={{
+                      minWidth: "48px",
+                      borderColor: "#ffb26b",
+                      color: "#ff5f00",
+                      backgroundColor: "#fff3e6",
+                      "&:hover": {
+                        borderColor: "#ff9a3d",
+                        backgroundColor: "#ffe7cc",
+                      },
+                    }}
+                  >
+                    +
+                  </Button>
+                </div>
+
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={() => dispatch(removeItem(item.id))}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  Remove
+                </Button>
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
               </div>
             </div>
           );
@@ -250,6 +343,7 @@ const CartReview = () => {
 
         <div
           style={{
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "12px",
@@ -262,6 +356,19 @@ const CartReview = () => {
             variant="outlined"
             onClick={handleBackToMenu}
             sx={{
+=======
+            display: "flex",
+            gap: "12px",
+            marginTop: "24px",
+            flexWrap: "wrap",
+          }}
+        >
+          <Button
+            variant="outlined"
+            onClick={handleBackToMenu}
+            sx={{
+              minWidth: "160px",
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
               borderColor: "#ffb26b",
               color: "#ff5f00",
               backgroundColor: "#fff3e6",
@@ -275,10 +382,17 @@ const CartReview = () => {
           </Button>
 
           <Button
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
             fullWidth
             variant="contained"
             onClick={handleProceed}
             sx={{
+=======
+            variant="contained"
+            onClick={handleProceed}
+            sx={{
+              minWidth: "160px",
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
               backgroundColor: "#ff5f00",
               fontWeight: 700,
               "&:hover": {
@@ -294,6 +408,7 @@ const CartReview = () => {
   );
 };
 
+<<<<<<< HEAD:frontend/src/pages/CartReview.jsx
 export default CartReview;*/
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -629,3 +744,6 @@ const CartReview = () => {
 };
 
 export default CartReview;
+=======
+export default CartReview;
+>>>>>>> b1146eb29a053387bd66764c879e87ddb19d5c3a:src/pages/CartReview.jsx
