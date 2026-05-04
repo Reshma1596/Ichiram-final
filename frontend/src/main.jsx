@@ -6,17 +6,23 @@ import { BrowserRouter } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import NetworkErrorPage from './pages/NetworkErrorPage.jsx'
 import { CounterProvider } from './Context/CounterContext.jsx'
+import "./i18n";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+/*import { OrderProvider } from "./context/OrderContext";*/
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      <Provider store={store}>          
       <ErrorBoundary FallbackComponent={NetworkErrorPage}>
         <CounterProvider>
-          <App /> 
-          
-        </CounterProvider>
+          {/* <OrderProvider></OrderProvider> */}
+           <App /> 
+          </CounterProvider>
       </ErrorBoundary>
+        </Provider>
     </BrowserRouter>
   </StrictMode>,
 );

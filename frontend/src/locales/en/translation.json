@@ -1,0 +1,54 @@
+{
+  "welcome": {
+    "title": "Welcome",
+    "subtitle": "Begin your ramen experience",
+    "serviceTitle": "Our Service",
+    "chooseDiningType": "Choose Dining Type",
+    "dineIn": "Dine In",
+    "takeAway": "Take Away",
+    "dineInAlt": "Dine in meal",
+    "takeAwayAlt": "Take away meal",
+    "chooseLanguage": "Choose Language",
+    "languageEnglish": "English",
+    "languageTamil": "Tamil",
+    "languageJapanese": "Japanese",
+    "continue": "Continue",
+    "back": "Back"
+  },
+  "partySize": {
+  "title": "Select Party Size",
+  "subtitle": "While the kitchen gets ready for something delicious, pick the bowl that matches your group.",
+  "options": {
+    "1": { "label": "Solo slurp" },
+    "2": { "label": "Duo bowl" },
+    "3_4": { "label": "Ramen crew" },
+    "5_6": { "label": "Hungry squad" },
+    "7_plus": { "label": "Feast mode" }
+  }
+},
+  "menu": {
+    "title": "Our Menu",
+    "addToCart": "Add to Cart",
+    "items": {
+      "tonkotsu": {
+        "name": "Tonkotsu Ramen",
+        "description": "Rich pork broth with springy noodles."
+      },
+      "shoyu": {
+        "name": "Shoyu Ramen",
+        "description": "Soy-based broth with a balanced savory taste."
+      },
+      "miso": {
+        "name": "Miso Ramen",
+        "description": "Hearty miso broth with deep umami flavor."
+      }
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "totalItems": "Total Items",
+    "subtotal": "Subtotal",
+    "clear": "Clear Cart",
+    "checkout": "Proceed to Checkout"
+  }
+}

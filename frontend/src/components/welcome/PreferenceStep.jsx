@@ -1,6 +1,7 @@
 import { Box, Typography, Button, Paper } from "@mui/material";
 import dineInGif from "../../assets/Dine-in.gif";
 import takeawayGif from "../../assets/Takeaway.gif";
+import { useTranslation } from "react-i18next";
 
 export default function PreferenceStep({
   selectedLanguage,
@@ -9,6 +10,9 @@ export default function PreferenceStep({
   onSelectOrderType,
   onContinue,
 }) {
+
+   const { t } = useTranslation();
+
   const isContinueDisabled = !selectedLanguage || !selectedOrderType;
 
   const orderCardStyle = (isSelected) => ({
@@ -52,23 +56,23 @@ export default function PreferenceStep({
   return (
     <Box sx={{ p: 5, textAlign: "center" }}>
       <Typography variant="h3" sx={{ fontWeight: 900, mb: 2, color: "#1a1a1a" }}>
-        Our Service
+        {t("welcome.serviceTitle")}
       </Typography>
 
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 6, color: "#1a1a1a" }}>
-        Choose Dining Type
+        {t("welcome.chooseDiningType")}
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "center", gap: 5, mb: 8, flexWrap: "wrap" }}>
         <Paper
           elevation={0}
-          sx={orderCardStyle(selectedOrderType === "Dine In")}
-          onClick={() => onSelectOrderType("Dine In")}
+          sx={orderCardStyle(selectedOrderType === "dineIn")}
+          onClick={() => onSelectOrderType("dineIn")}
         >
           <Box
             component="img"
             src={dineInGif}
-            alt="Dine in meal"
+            alt={t("welcome.dineInAlt")}
             sx={{
               width: 140,
               height: 140,
@@ -78,7 +82,7 @@ export default function PreferenceStep({
             }}
           />
           <Typography variant="h6" sx={{ fontWeight: 800, fontSize: "1.4rem" }}>
-            Dine In
+             {t("welcome.dineIn")}
           </Typography>
           {/*<Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
             Enjoy cozy ambience with delicious food and excellent service.
@@ -87,13 +91,13 @@ export default function PreferenceStep({
 
         <Paper
           elevation={0}
-          sx={orderCardStyle(selectedOrderType === "Take Away")}
-          onClick={() => onSelectOrderType("Take Away")}
+          sx={orderCardStyle(selectedOrderType === "takeAway")}
+          onClick={() => onSelectOrderType("takeAway")}
         >
           <Box
             component="img"
             src={takeawayGif}
-            alt="Take away meal"
+            alt={t("welcome.takeawayAlt")}
             sx={{
               width: 140,
               height: 140,
@@ -103,7 +107,7 @@ export default function PreferenceStep({
             }}
           />
           <Typography variant="h6" sx={{ fontWeight: 800, fontSize: "1.4rem" }}>
-            Take Away
+            {t("welcome.takeAway")}
           </Typography>
          {/* <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
             Grab fresh & hygienically packed meals on the go with quick service.
@@ -112,27 +116,30 @@ export default function PreferenceStep({
       </Box>
 
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 4, color: "#1a1a1a" }}>
-        Choose Language
+        {t("welcome.chooseLanguage")}
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "center", gap: 3, flexWrap: "wrap", mb: 6 }}>
+
         <Button
-          onClick={() => onSelectLanguage("English")}
-          sx={languageButtonStyle(selectedLanguage === "English")}
+          onClick={() => onSelectLanguage("en")}
+          sx={languageButtonStyle(selectedLanguage === "en")}
         >
-          English
+          {t("welcome.languageEnglish")}
         </Button>
+
         <Button
-          onClick={() => onSelectLanguage("Tamil")}
-          sx={languageButtonStyle(selectedLanguage === "Tamil")}
+          onClick={() => onSelectLanguage("ta")}
+          sx={languageButtonStyle(selectedLanguage === "ta")}
         >
-          தமிழ்
+          {t("welcome.languageTamil")}
         </Button>
+
         <Button
-          onClick={() => onSelectLanguage("Japanese")}
-          sx={languageButtonStyle(selectedLanguage === "Japanese")}
+          onClick={() => onSelectLanguage("ja")}
+          sx={languageButtonStyle(selectedLanguage === "ja")}
         >
-          日本語
+          {t("welcome.languageJapanese")}
         </Button>
       </Box>
 
@@ -160,7 +167,7 @@ export default function PreferenceStep({
           },
         }}
       >
-        CONTINUE
+         {t("welcome.continue")}
       </Button>
     </Box>
   );

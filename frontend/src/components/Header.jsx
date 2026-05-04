@@ -1,41 +1,79 @@
-import {AppBar, Button, Toolbar, Typography, Badge,Box} from "@mui/material"
-import PersonIcon from '@mui/icons-material/Person';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import { Link } from "react-router-dom";
-import {useContext} from "react";
+import {
+  AppBar,
+  Button,
+  Toolbar,
+  Typography,
+  Badge,
+  Box,
+  IconButton,
+} from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 import { CounterContext } from "../Context/CounterContext.jsx";
 
-function Header(){
+function Header() {
   const { count } = useContext(CounterContext);
-  return(<>
-  <AppBar position="static">
-    <Toolbar style={{background:"#FF5F00", display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" color="black">IchiranMen </Typography>
 
-      <Box>
-       
-        <Link to="/menu">
-          <Button style={{ color: "black" }}>Menu</Button>
-        </Link>
-        <Link to="/aboutus">
-          <Button style={{ color: "black" }}>Aboutus</Button>
-        </Link>
-        <Link to="/contact">
-          <Button style={{ color: "black" }}>Contact</Button>
-        </Link>
-     </Box>
-     <Box style={{display:"flex", gap:"26px"}}>
-       <PersonIcon style={{color:"Black"}}/>
+  const navLinkStyle = ({ isActive }) => ({
+    textDecoration: "none",
+    margin: "0 6px",
+  });
 
-       <Badge badgeContent={count} color="primary"> <AddShoppingCartIcon style={{color:"Black"}}/> </Badge>
+  const navButtonStyle = ({ isActive }) => ({
+    color: "black",
+    fontWeight: isActive ? 700 : 500,
+    borderBottom: isActive ? "2px solid black" : "2px solid transparent",
+    borderRadius: 0,
+  });
 
-       <PointOfSaleIcon style={{color:"Black"}}/>
+  return (
+    <AppBar position="static" elevation={1} sx={{ background: "#FF5F00" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h6" sx={{ color: "black", fontWeight: 700 }}>
+          IchiranMen
+        </Typography>
 
-     </Box>
-    </Toolbar>
-  </AppBar>
-  </>)
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <NavLink to="/home/menu" style={navLinkStyle}>
+            {({ isActive }) => (
+              <Button sx={navButtonStyle({ isActive })}>Menu</Button>
+            )}
+          </NavLink>
+
+          <NavLink to="/home/aboutus" style={navLinkStyle}>
+            {({ isActive }) => (
+              <Button sx={navButtonStyle({ isActive })}>About Us</Button>
+            )}
+          </NavLink>
+
+          <NavLink to="/home/contact" style={navLinkStyle}>
+            {({ isActive }) => (
+              <Button sx={navButtonStyle({ isActive })}>Contact</Button>
+            )}
+          </NavLink>
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <IconButton>
+            <PersonIcon sx={{ color: "black" }} />
+          </IconButton>
+
+          <IconButton>
+            <Badge badgeContent={count} color="primary">
+              <AddShoppingCartIcon sx={{ color: "black" }} />
+            </Badge>
+          </IconButton>
+
+          <IconButton>
+            <PointOfSaleIcon sx={{ color: "black" }} />
+          </IconButton>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }
+
 export default Header;
- 

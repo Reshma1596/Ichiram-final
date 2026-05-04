@@ -1,16 +1,29 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { CounterContext } from "../Context/CounterContext.jsx";
+import { Box, IconButton, CircularProgress, Typography } from "@mui/material";
+import {useState} from "react";
+/*import ReactDOM from "react-dom";
+import { CounterContext } from "../Context/CounterContext.jsx";*/
 
-function Counter() {
+function Counter({ quantity, onIncrement, onDecrement }) {
 
-  const { count, incrementCount, decrementCount } = useContext(CounterContext);
+  /*const { count, incrementCount, decrementCount } = useContext(CounterContext);
   const [isLoading, setLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
-  /*let count = useContext(CounterContext);*/
+  let count = useContext(CounterContext);*/
 
-  // Portal
+  const [loadingAction, setLoadingAction] = useState(null);
+
+  const handleIncrement = async () => {
+    setLoadingAction("inc");
+    await Promise.resolve(onIncrement());
+    setLoadingAction(null);
+  };
+
+  const handleDecrement = async () => {
+    setLoadingAction("dec");
+    await Promise.resolve(onDecrement());
+    setLoadingAction(null);
+  };
+
   function Alertuser() {
     return ReactDOM.createPortal(
       <Warning setShowWarning={setShowWarning} />,
@@ -18,7 +31,50 @@ function Counter() {
     );
   }
 
-  // Warning component
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 1.5,
+        border: "1px solid #ddd",
+        borderRadius: "999px",
+        px: 1,
+        py: 0.5,
+        width: "fit-content",
+      }}
+    >
+      <IconButton
+        size="small"
+        onClick={handleDecrement}
+        disabled={loadingAction !== null}
+      >
+        -
+      </IconButton>
+
+      {loadingAction ? (
+        <CircularProgress size={20} />
+      ) : (
+        <Typography
+          variant="body1"
+          sx={{ minWidth: "24px", textAlign: "center" }}
+        >
+          {quantity}
+        </Typography>
+      )}
+
+      <IconButton
+        size="small"
+        onClick={handleIncrement}
+        disabled={loadingAction !== null}
+      >
+        +
+      </IconButton>
+    </Box>
+  );
+}
+
+  /*// Warning component
   function Warning({ setShowWarning }) {
     return (
       <div
@@ -119,6 +175,6 @@ function Counter() {
       </Button>
     </Box>
   );
-}
+}*/
 
 export default Counter;
