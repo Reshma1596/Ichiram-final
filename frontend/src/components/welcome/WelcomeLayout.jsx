@@ -1,15 +1,21 @@
 import styles from './WelcomeLayout.module.css';
-import ramenImg from "../../assets/ramen.jpg";
-
+import ramenImg from "../../assets/hero-ramen.png";
+import ramenright from "../../assets/teriyaki-chicken-miso.jpg";
 function WelcomeLayout({ children }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.leftPanel}>
-        <h6 className={styles.brandTitle}>Ichiram</h6>
-        </div>
+        <img src={ramenImg} alt="Ramen hero" className={styles.brandImage} />
+
+      </div>
       <div className={styles.rightPanel}>
-        {children}
+        <img src={ramenright} alt="" className={styles.rightPanelBg} />
+        <div className={styles.rightPanelContent}>
+{children}
+        </div>
+        
           </div>
+           
     </div>
   );
 }

@@ -2,37 +2,37 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 
+// GET all orders
+router.get("/", async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error("Fetch orders error:", error);
+    res.status(500).json({
+      message: "Failed to fetch orders",
+      error: error.message,
+    });
+  }
+});
+
+// POST create order
 router.post("/", async (req, res) => {
   try {
-    const { items, totalItems, subtotal } = req.body;
+    const { items, totalItems, paymentMethod, paymentStatus, status } = req.body;
 
-    if (!Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ message: "Items are required" });
-    }
-
-    const normalizedItems = items.map((item) => ({
-      id: item.id,
-      nameKey: item.nameKey,
-      descriptionKey: item.descriptionKey || "",
-      price: Number(item.price) || 0,
-      quantity: Number(item.quantity) || 1,
-      image: item.image || "",
-      foodType: item.foodType || "",
-    }));
-
-    const order = new Order({
-      items: normalizedItems,
-      totalItems: Number(totalItems) || normalizedItems.reduce((sum, item) => sum + item.quantity, 0),
-      subtotal: Number(subtotal) || normalizedItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    const newOrder = new Order({
+      items,
+      totalItems,
+      paymentMethod: paymentMethod || "cash",
+      paymentStatus: paymentStatus || "pending",
+      status: status || "confirmed",
     });
 
-    const savedOrder = await order.save();
-
-    res.status(201).json({
-      message: "Order created successfully",
-      order: savedOrder,
-    });
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
   } catch (error) {
+    console.error("Create order error:", error);
     res.status(500).json({
       message: "Failed to create order",
       error: error.message,
@@ -40,13 +40,26 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+// PUT update order status
+router.put("/:id/status", async (req, res) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 }).lean();
-    res.json(orders);
+    const { status } = req.body;
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json(updatedOrder);
   } catch (error) {
+    console.error("Update status error:", error);
     res.status(500).json({
-      message: "Failed to fetch orders",
+      message: "Failed to update order status",
       error: error.message,
     });
   }

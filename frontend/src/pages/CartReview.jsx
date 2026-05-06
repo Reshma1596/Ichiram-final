@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import { placeOrder } from "../redux/ordersSlice";
 import { selectMenuItems } from "../redux/menuSlice";
 
-
 const CartReview = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -30,29 +29,47 @@ const CartReview = () => {
     navigate("/menu");
   };
 
-  const handleProceed = () => {
-    const orderData = {
-      id: `ORD-${Date.now()}`,
-      items: cartList,
-      totalItems,
-      subtotal,
-      orderType: "dine-in",
-      customerInfo: {
-        name: "Guest",
-        tableNo: "T1",
-      },
-      status: "New",
-      createdAt: new Date().toISOString(),
-    };
+  const handleProceed = async () => {
+    try {
+      const payload = {
+        items: cartList.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+        })),
+        totalItems,
+        paymentMethod: "cash",
+        paymentStatus: "pending",
+        status: "confirmed",
+      };
 
-    dispatch(placeOrder(orderData));
-    dispatch(clearCart());
+      console.log("ORDER PAYLOAD:", payload);
 
-    navigate("/confirmation", {
-      state: {
-        order: orderData,
-      },
-    });
+      const response = await fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      console.log("ORDER RESPONSE:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to place order");
+      }
+
+      dispatch(clearCart());
+
+      navigate("/confirmation", {
+        state: {
+          order: data,
+        },
+      });
+    } catch (error) {
+      console.error("Order failed:", error);
+      alert("Order failed: " + error.message);
+    }
   };
 
   if (cartList.length === 0) {

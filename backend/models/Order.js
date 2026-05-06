@@ -2,26 +2,54 @@ const mongoose = require("mongoose");
 
 const orderItemSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true },
-    nameKey: { type: String, required: true },
-    descriptionKey: { type: String, default: "" },
-    price: { type: Number, required: true },
+    id: { type: String, required: true, trim: true },
     quantity: { type: Number, required: true, min: 1 },
-    image: { type: String, default: "" },
-    foodType: { type: String, default: "" },
   },
   { _id: false }
 );
 
 const orderSchema = new mongoose.Schema(
   {
-    items: { type: [orderItemSchema], required: true },
-    totalItems: { type: Number, required: true },
-    subtotal: { type: Number, required: true },
-    status: { type: String, default: "confirmed" },
+    customerName: { type: String, default: "Guest", trim: true },
+    phone: { type: String, default: "", trim: true },
+    tableNumber: { type: String, default: "", trim: true },
+    diningType: { type: String, default: "", trim: true },
+
+    items: {
+      type: [orderItemSchema],
+      required: true,
+      validate: {
+        validator: (v) => Array.isArray(v) && v.length > 0,
+        message: "Order must contain at least one item",
+      },
+    },
+
+    totalItems: { type: Number, required: true, min: 1 },
+    totalAmount: { type: Number, default: 0, min: 0 },
+
+    paymentMethod: {
+      type: String,
+      enum: ["cash", "upi", "card"],
+      default: "cash",
+    },
+
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid"],
+      default: "pending",
+    },
+
+    status: {
+      type: String,
+      enum: ["confirmed", "Preparing", "Ready", "Served"],
+      default: "confirmed",
+    },
     createdAt: { type: Date, default: Date.now },
   },
-  { versionKey: false }
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
 module.exports = mongoose.model("Order", orderSchema);

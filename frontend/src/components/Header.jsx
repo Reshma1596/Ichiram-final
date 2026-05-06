@@ -6,18 +6,46 @@ import {
   Badge,
   Box,
   IconButton,
+  Menu,
+  MenuItem,
+  Divider,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { CounterContext } from "../Context/CounterContext.jsx";
+import {
+  clearGuestData,
+  getGuestFromLocal,
+  getSessionPrefs,
+} from "../utils/storage";
 
 function Header() {
   const { count } = useContext(CounterContext);
+  const navigate = useNavigate();
+  const guest = getGuestFromLocal();
+  const prefs = getSessionPrefs();
 
-  const navLinkStyle = ({ isActive }) => ({
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    clearGuestData();
+    handleClose();
+    navigate("/login");
+  };
+
+  const navLinkStyle = () => ({
     textDecoration: "none",
     margin: "0 6px",
   });
@@ -32,7 +60,11 @@ function Header() {
   return (
     <AppBar position="static" elevation={1} sx={{ background: "#FF5F00" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h6" sx={{ color: "black", fontWeight: 700 }}>
+        <Typography
+          variant="h6"
+          sx={{ color: "black", fontWeight: 700, cursor: "pointer" }}
+          onClick={() => navigate("/menu")}
+        >
           IchiranMen
         </Typography>
 
@@ -57,11 +89,28 @@ function Header() {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton>
+          <IconButton onClick={handleProfileClick}>
             <PersonIcon sx={{ color: "black" }} />
           </IconButton>
 
-          <IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <MenuItem disabled>Name: {guest.name || "-"}</MenuItem>
+            <MenuItem disabled>Phone: {guest.phone || "-"}</MenuItem>
+            <Divider />
+            <MenuItem disabled>Dining Type: {prefs.diningType || "-"}</MenuItem>
+            <MenuItem disabled>Party Size: {prefs.partySize || "-"}</MenuItem>
+            <MenuItem disabled>Language: {prefs.language || "-"}</MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
+
+          <IconButton onClick={() => navigate("/cart")}>
             <Badge badgeContent={count} color="primary">
               <AddShoppingCartIcon sx={{ color: "black" }} />
             </Badge>

@@ -5,6 +5,7 @@ import PreferenceStep from "../components/welcome/PreferenceStep.jsx";
 import { useNavigate } from "react-router-dom";
 import PartySizeStep from "../components/welcome/PartySizeStep.jsx";
 import { useTranslation } from "react-i18next";
+import { saveSessionPrefs } from "../utils/storage";
 
 function WelcomeFlow() {
 
@@ -27,25 +28,34 @@ const handleOrderTypeSelect = (orderTypeCode) => {
 };
 
 const handlePreferenceContinue = () => {
-    if (!selectedLanguage || !selectedOrderType) return;
-    setStep("partySize");
-    
+  if (!selectedLanguage || !selectedOrderType) return;
 
-    if (selectedOrderType === "takeAway") {
-      navigate("/menu");
-      return;
-    }
+  if (selectedOrderType === "takeAway") {
+    saveSessionPrefs({
+      partySize: "",
+      diningType: selectedOrderType,
+      language: selectedLanguage,
+    });
+    navigate("/login");
+    return;
+  }
 
-    if (selectedOrderType === "dineIn") {
-      setStep(3);
-    }
-  };
+  if (selectedOrderType === "dineIn") {
+    setStep(3);
+  }
+};
 
   const handlePartySizeContinue = () => {
-    if (!selectedPartySize) return;
+  if (!selectedPartySize) return;
 
-    navigate("/menu");
-  };
+  saveSessionPrefs({
+    partySize: selectedPartySize,
+    diningType: selectedOrderType,
+    language: selectedLanguage,
+  });
+
+  navigate("/login");
+};
 
   const nextStep = () => {
     setStep((prev) => prev + 1);
