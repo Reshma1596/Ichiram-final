@@ -32,7 +32,7 @@ const handlePreferenceContinue = () => {
     
 
     if (selectedOrderType === "takeAway") {
-      navigate("/home/menu");
+      navigate("/menu");
       return;
     }
 
@@ -44,7 +44,7 @@ const handlePreferenceContinue = () => {
   const handlePartySizeContinue = () => {
     if (!selectedPartySize) return;
 
-    navigate("/home/menu");
+    navigate("/menu");
   };
 
   const nextStep = () => {

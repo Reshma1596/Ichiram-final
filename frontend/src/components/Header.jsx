@@ -37,19 +37,19 @@ function Header() {
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <NavLink to="/home/menu" style={navLinkStyle}>
+          <NavLink to="/menu" style={navLinkStyle}>
             {({ isActive }) => (
               <Button sx={navButtonStyle({ isActive })}>Menu</Button>
             )}
           </NavLink>
 
-          <NavLink to="/home/aboutus" style={navLinkStyle}>
+          <NavLink to="/aboutus" style={navLinkStyle}>
             {({ isActive }) => (
               <Button sx={navButtonStyle({ isActive })}>About Us</Button>
             )}
           </NavLink>
 
-          <NavLink to="/home/contact" style={navLinkStyle}>
+          <NavLink to="/contact" style={navLinkStyle}>
             {({ isActive }) => (
               <Button sx={navButtonStyle({ isActive })}>Contact</Button>
             )}

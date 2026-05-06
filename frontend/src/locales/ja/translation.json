@@ -1,0 +1,65 @@
+{
+  "welcome": {
+    "title": "ようこそ",
+    "subtitle": "ラーメン体験を始めましょう",
+    "serviceTitle": "私たちのサービス",
+    "chooseDiningType": "利用方法を選択してください",
+    "dineIn": "店内飲食",
+    "takeAway": "テイクアウト",
+    "dineInAlt": "店内で食事する",
+    "takeAwayAlt": "持ち帰りの食事",
+    "chooseLanguage": "言語を選択してください",
+    "languageEnglish": "英語",
+    "languageTamil": "タミル語",
+    "languageJapanese": "日本語",
+    "continue": "続行",
+    "back": "戻る"
+  },
+  "partySize": {
+    "title": "人数を選択してください",
+    "subtitle": "料理の準備が進む間に、グループに合ったサイズを選んでください。",
+    "options": {
+      "1": { "label": "おひとり様" },
+      "2": { "label": "2人組" },
+      "3_4": { "label": "ラーメングループ" },
+      "5_6": { "label": "大人数グループ" },
+      "7_plus": { "label": "宴会モード" }
+    }
+  },
+  "menu": {
+  "title": "メニュー",
+  "addToCart": "カートに追加",
+  "bestseller": "ベストセラー",
+  "veg": "ベジ",
+  "nonveg": "ノンベジ",
+  "items": {
+    "shoyu": {
+      "name": "醤油ラーメン",
+      "description": "醤油ベースの、バランスの良い旨味のあるスープ。"
+    },
+    "miso": {
+      "name": "味噌ラーメン",
+      "description": "濃厚な味噌スープで、深い旨味が楽しめます。"
+    },
+    "chashu": {
+      "name": "チャーシュー鶏ラーメン",
+      "description": "脂のある鶏肉をやわらかくなるまで焼き上げた一杯。"
+    },
+    "shio": {
+      "name": "塩ラーメン",
+      "description": "塩味で仕上げた、あっさり透明感のあるスープ。"
+    },
+    "kare": {
+      "name": "カレーラーメン",
+      "description": "野菜、豆腐、きのこ、ハーブ入りのスパイシーなカレー風スープ。"
+    }
+  }
+},
+  "cart": {
+    "title": "あなたのカート",
+    "totalItems": "合計商品数",
+    "subtotal": "小計",
+    "clear": "カートを空にする",
+    "checkout": "チェックアウトへ進む"
+  }
+}

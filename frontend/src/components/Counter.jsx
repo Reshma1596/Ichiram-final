@@ -1,15 +1,9 @@
 import { Box, IconButton, CircularProgress, Typography } from "@mui/material";
 import {useState} from "react";
-/*import ReactDOM from "react-dom";
-import { CounterContext } from "../Context/CounterContext.jsx";*/
 
 function Counter({ quantity, onIncrement, onDecrement }) {
 
-  /*const { count, incrementCount, decrementCount } = useContext(CounterContext);
-  const [isLoading, setLoading] = useState(false);
-  const [showWarning, setShowWarning] = useState(false);
-  let count = useContext(CounterContext);*/
-
+  
   const [loadingAction, setLoadingAction] = useState(null);
 
   const handleIncrement = async () => {

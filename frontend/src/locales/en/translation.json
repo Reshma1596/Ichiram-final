@@ -27,23 +27,34 @@
   }
 },
   "menu": {
-    "title": "Our Menu",
-    "addToCart": "Add to Cart",
-    "items": {
-      "tonkotsu": {
-        "name": "Tonkotsu Ramen",
-        "description": "Rich pork broth with springy noodles."
-      },
-      "shoyu": {
-        "name": "Shoyu Ramen",
-        "description": "Soy-based broth with a balanced savory taste."
-      },
-      "miso": {
-        "name": "Miso Ramen",
-        "description": "Hearty miso broth with deep umami flavor."
-      }
+  "title": "Our Menu",
+  "addToCart": "Add to Cart",
+  "bestseller": "Bestseller",
+  "veg": "Veg",
+  "nonveg": "Non-Veg",
+  "items": {
+    "shoyu": {
+      "name": "Shoyu Ramen",
+      "description": "Soy-based broth with a balanced savory taste."
+    },
+    "miso": {
+      "name": "Miso Ramen",
+      "description": "Hearty miso broth with deep umami flavor."
+    },
+    "chashu": {
+      "name": "Chashu Chicken Ramen",
+      "description": "Slices of fatty chicken roasted or braised until tender."
+    },
+    "shio": {
+      "name": "Shio Ramen",
+      "description": "Salt-seasoned, light and clear broth with a refreshing taste."
+    },
+    "kare": {
+      "name": "Kare Burosu Ramen",
+      "description": "Spicy curried broth with vegetables, tofu, mushrooms, and herbs."
     }
-  },
+  }
+},
   "cart": {
     "title": "Your Cart",
     "totalItems": "Total Items",

@@ -73,7 +73,7 @@ export const selectItemQuantity = (state, id) =>
 
 export const selectSubtotal = (state, menuData) =>
   Object.values(state.cart.items).reduce((total, item) => {
-    const product = menuData.find((p) => p.id === item.id);
+    const product = menuData.find((p) => (p.id || p._id) === item.id);
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 

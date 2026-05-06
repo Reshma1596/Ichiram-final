@@ -1,0 +1,95 @@
+.about-page {
+  font-family: system-ui;
+  color: #333;
+}
+
+.hero {
+  position: relative;
+  height: 60vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.5);
+  padding: 30px 60px;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 60px 80px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.info-card h2 {
+  color: #ff5a00;
+}
+
+.game-section {
+  text-align: center;
+  padding: 60px;
+  background: #111;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  gap: 4px;
+  justify-content: center;
+  margin: 30px auto;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background: #222;
+  position: relative;
+}
+
+.player {
+  width: 100%;
+  height: 100%;
+  background: yellow;
+  border-radius: 50%;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+}
+
+.level {
+  margin-top: 10px;
+}
+
+.reward {
+  margin-top: 20px;
+  font-size: 26px;
+  color: #ff5a00;
+}

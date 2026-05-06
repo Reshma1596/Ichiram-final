@@ -1,102 +1,83 @@
-import { Box, Grid, Paper, Stack, Typography, Button } from "@mui/material";
+import React, { useEffect } from "react";
+import { Box, Paper, Stack, Typography, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ListProduct from "../components/ListProduct";
-/*import menuData from "../data/menuData";*/
 import { clearCart, selectCartCount, selectSubtotal } from "../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-
+import {
+  fetchMenuStart,
+  fetchMenuSuccess,
+  fetchMenuFailure,
+  selectMenuItems,
+  selectMenuLoading,
+  selectMenuError,
+} from "../redux/menuSlice";
 
 function Menu() {
-  
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [menuItems, setMenuItems] = useState([]);
+  const menus = useSelector(selectMenuItems);
+  const loading = useSelector(selectMenuLoading);
+  const error = useSelector(selectMenuError);
+  const wholeMenuState = useSelector((state) => state.menu);
+
+  const totalItems = useSelector(selectCartCount);
+  const subtotal = useSelector((state) => selectSubtotal(state, menus));
+  const isCartEmpty = totalItems === 0;
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/menu")
-      .then((res) => res.json())
-      .then((data) => setMenuItems(data))
-      .catch((err) => console.error("Menu fetch error:", err));
-  }, []);
+    const fetchMenu = async () => {
+      try {
+        dispatch(fetchMenuStart());
+        const res = await fetch("/api/menu", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to fetch menu");
+        const data = await res.json();
+        dispatch(fetchMenuSuccess(data));
+      } catch (err) {
+        dispatch(fetchMenuFailure(err.message));
+      }
+    };
 
-  /*const cartItems = useSelector((state) => state.cart.items);*/
-  const totalItems = useSelector(selectCartCount);
-  const subtotal = useSelector((state) => selectSubtotal(state, menuItems));
+    if (menus.length === 0 && !loading) fetchMenu();
+  }, [dispatch, menus.length, loading]);
 
-  const isCartEmpty = totalItems === 0;
-  
+  if (loading) {
+    return <Box sx={{ p: 3 }}><Typography>Loading menu...</Typography></Box>;
+  }
+
+  if (error) {
+    return <Box sx={{ p: 3 }}><Typography color="error">{error}</Typography></Box>;
+  }
+
   return (
-    <Box sx={{ p: 3 }}>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={3}
-        alignItems="flex-start"
-      >
+    <Box sx={{ p: 3, minHeight: "100vh", pb: 6 }}>
+      <Stack direction={{ xs: "column", md: "row" }} spacing={3} alignItems="flex-start">
         <Box sx={{ flex: 1 }}>
           <Typography variant="h4" sx={{ mb: 3, fontWeight: 700 }}>
             {t("menu.title")}
           </Typography>
 
-          <Grid container spacing={3}>
-            {menuItems.map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
-                <ListProduct product={product} />
-              </Grid>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }, gap: 3 }}>
+            {menus.map((product) => (
+              <ListProduct key={product.id || product._id} product={product} />
             ))}
-          </Grid>
+          </Box>
         </Box>
 
-        <Paper
-          elevation={3}
-          sx={{
-            width: { xs: "100%", md: 320 },
-            p: 3,
-            borderRadius: 3,
-            position: { md: "sticky" },
-            top: 24,
-          }}
-        >
+        <Paper elevation={3} sx={{ width: { xs: "100%", md: 320 }, p: 3, borderRadius: 3, position: { xs: "static", md: "sticky" }, top: 24, alignSelf: "flex-start" }}>
           <Stack spacing={2}>
             <Typography variant="h5">{t("cart.title")}</Typography>
-
-            <Typography variant="body1">
-              {t("cart.totalItems")}: {totalItems}
-            </Typography>
-
-            <Typography variant="body1">
-              {t("cart.subtotal")}: ₹{subtotal}
-            </Typography>
-
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => dispatch(clearCart())}
-              disabled={isCartEmpty}
-            >
+            <Typography variant="body1">{t("cart.totalItems")}: {totalItems}</Typography>
+            <Typography variant="body1">{t("cart.subtotal")}: ₹{subtotal}</Typography>
+            <Button variant="outlined" color="error" onClick={() => dispatch(clearCart())} disabled={isCartEmpty}>
               {t("cart.clear")}
             </Button>
-
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#ff5f00",
-                color: "#fff",
-                "&:hover": {
-                  backgroundColor: "#e65600",
-                },
-              }}
-              disabled={isCartEmpty}
-                onClick={() => navigate("/home/cart")}
-            >
+            <Button variant="contained" sx={{ backgroundColor: "#ff5f00", color: "#fff", "&:hover": { backgroundColor: "#e65600" } }} disabled={isCartEmpty} onClick={() => navigate("/cart")}>
               {t("cart.checkout")}
             </Button>
-
-           
-
           </Stack>
         </Paper>
       </Stack>
